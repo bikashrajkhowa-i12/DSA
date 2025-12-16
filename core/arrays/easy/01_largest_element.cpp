@@ -8,24 +8,13 @@ using namespace std;
 
 int largest_element(int arr[], int n)
 {
-  for (int i = n - 1; i >= 0; i--)
+  int max_index = 0;
+  for (int i = 0; i < n; i++)
   {
-    bool swapped = false;
-    for (int j = 0; j < i; j++)
-    {
-      if (arr[j + 1] < arr[j])
-      {
-        int temp = arr[j + 1];
-        arr[j + 1] = arr[j];
-        arr[j] = temp;
-        swapped = true;
-      }
-    }
-    if (!swapped)
-      break;
+    if (arr[i] > arr[max_index])
+      max_index = i + 1;
   }
-
-  return arr[n - 1];
+  return arr[max_index];
 }
 
 int main()
