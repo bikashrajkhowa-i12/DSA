@@ -8,13 +8,13 @@ using namespace std;
 
 int largest_element(int arr[], int n)
 {
-  int max_index = 0;
+  int largest = arr[0];
   for (int i = 0; i < n; i++)
   {
-    if (arr[i] > arr[max_index])
-      max_index = i + 1;
+    if (arr[i] > largest)
+      largest = arr[i];
   }
-  return arr[max_index];
+  return largest;
 }
 
 int main()
