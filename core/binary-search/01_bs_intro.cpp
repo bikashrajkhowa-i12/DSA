@@ -14,7 +14,7 @@ int binary_search(vector<int> &arr, int n, int target)
 
     while (low <= high)
     {
-        int mid = (high + low) / 2;
+        int mid = low + (high - low) / 2;
 
         if (target == arr[mid])
             return mid;
@@ -32,7 +32,7 @@ int recursive_bs(vector<int> &arr, int target, int low, int high)
     if (low > high)
         return -1;
 
-    int mid = (low + high) / 2;
+    int mid = low + (high - low) / 2;
     if (target == arr[mid])
         return mid;
     else if (target > arr[mid])
@@ -44,11 +44,11 @@ int recursive_bs(vector<int> &arr, int target, int low, int high)
 int main()
 {
     int target;
-    vector<int> arr = {3, 4, 6, 7, 9, 11, 13, 17};
+    vector<int> arr = {3, 4, 6, 7, 9, 11, 13, 17, 21};
 
     cout << "Enter the element to be searched: ";
     cin >> target;
 
-    // cout << "The element " << target << " is at index: " << binary_search(arr, arr.size(), target);
-    cout << "The element " << target << " is at index: " << recursive_bs(arr, target, 0, arr.size() - 1);
+     cout << "The element " << target << " is at index: " << binary_search(arr, arr.size(), target);
+//    cout << "The element " << target << " is at index: " << recursive_bs(arr, target, 0, arr.size() - 1);
 }
