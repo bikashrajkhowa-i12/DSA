@@ -1,20 +1,22 @@
 /*
- You have been given a 2-D array 'mat' of size 'N x M' where 'N' and 'M' denote
- the number of rows and columns, respectively. The elements of each row and each
- column are sorted in non-decreasing order. But, the first element of a row is not
- necessarily greater than the last element of the previous row (if it exists).
- You are given an integer ‘target’, and your task is to find if it exists in the
- given 'mat' or not.
+ You have been given a 2-D array mat of size N × M, where:
+
+• Each row of the matrix is sorted in non-decreasing order
+• There is NO guarantee that columns are sorted
+• The first element of a row is not necessarily greater than the last element of the previous row
+
+You are given an integer target.
+Your task is to determine whether target exists in the matrix or not, and return its coordinates if found.
 
 Examples
 Example 1:
 Matrix=
 1   4   7   11
-2   5   8   12
 3   6   9   16
-10 13  14  17
+10  13  14  17
+2   5   8   12
 Target: 9
-Output: Found at (2,2) (0-indexed)
+Output: Found at (1,2) (0-indexed)
 */
 
 #include <bits/stdc++.h>
@@ -64,9 +66,10 @@ int main()
     int target;
     vector<vector<int>> mat = {
         {1, 4, 7, 11},
-        {2, 5, 8, 12},
         {3, 6, 9, 16},
-        {10, 13, 14, 17}};
+        {10, 13, 14, 17},
+        {2, 5, 8, 12},
+    };
 
     cout << "Enter a target to be searched: ";
     cin >> target;
