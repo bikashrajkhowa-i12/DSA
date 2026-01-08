@@ -31,7 +31,8 @@ using namespace std;
 // better: traverse for n rows, for each row apply binary search
 //  TC: O(n*logm); SC: O(1)
 
-// optimized: since the matrix is sorted rows and columns properly, applying the binary search directly by flattening the matrix.
+// optimized: since the matrix is fully-sorted rows and columns properly,
+// apply the binary search directly by flattening the matrix.
 // TC: O(log(n*m)); SC: O(1)
 bool check_target(vector<vector<int>> &mat, int n, int m, int target)
 {
