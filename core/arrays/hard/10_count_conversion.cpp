@@ -47,7 +47,7 @@ void merge(vector<int> &arr, int low, int mid, int high)
         else
         {
             temp.push_back(arr[right]);
-            counter += mid - left + 1;
+            counter += mid - left + 1; // count pairs during merge
             right++;
         }
     }
