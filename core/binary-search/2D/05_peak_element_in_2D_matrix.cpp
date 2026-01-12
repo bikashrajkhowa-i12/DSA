@@ -14,16 +14,6 @@ Explanation:
  The value at index [1, 1] is 25, which is a peak because all its neighbors (10, 7, 4, 9) are smaller.
 */
 
-/*
-******************Core Idea (the entire trick)********************
-In a 2D matrix with no duplicates, you can always discard half of the columns (or rows)
-by looking at the maximum element in a middle column and comparing it with its neighbors.
-1. First pick the mid(cols)
-2. Pick index of the highest element in the mid(i.e, index > up && index > down)
-3. Then compare left and right ( index > left && index > right)
-4. If left/right is > index, move center to that direction(col++/col--)
-5. Eventually mid will be he peak.
-*/
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -63,6 +53,17 @@ int maxIndex(vector<vector<int>> &mat, int n, int m, int col)
     return index;
 }
 
+/*
+*************** Optimized. TC: O(nlogm); SC: O(1) ****************
+******************Core Idea (the entire trick)********************
+In a 2D matrix with no duplicates, you can always discard half of the columns (or rows)
+by looking at the maximum element in a middle column and comparing it with its neighbors.
+1. First pick the mid(cols)
+2. Pick index of the highest element in the mid(i.e, index > up && index > down)
+3. Then compare left and right ( index > left && index > right)
+4. If left/right is > index, move center to that direction(col++/col--)
+5. Eventually mid will be he peak.
+*/
 pair<int, int> optimized_peak(vector<vector<int>> &mat, int n, int m)
 {
     int low = 0;
