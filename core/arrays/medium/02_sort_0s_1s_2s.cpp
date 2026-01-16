@@ -83,6 +83,8 @@ Complexity:
 Key insight:
 Never skip processing an unknown value — this is why mid does not move for 2.
 */
+
+// TC: O(n); SC: O(1)
 void dnf_algo(vector<int> &arr, int N)
 {
     int low = 0;
