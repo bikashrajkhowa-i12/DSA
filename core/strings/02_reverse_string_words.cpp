@@ -78,10 +78,38 @@ string optimized_rev_str(string s)
     return rev;
 }
 
+string reverse_full(string s)
+{
+    string revStr = "";
+    for (int i = s.length() - 1; i >= 0; i--)
+    {
+        revStr += s[i];
+    }
+    return revStr;
+}
+
+string optimized_rev_full(string s)
+{
+    if (s.length() < 1)
+        return s;
+    int left = 0;
+    int right = s.length() - 1;
+
+    while (left < right)
+    {
+        swap(s[left], s[right]);
+        left++;
+        right--;
+    }
+    return s;
+}
+
 int main()
 {
     string str = "welcome to the jungle";
     cout << "Given string:" << str << endl;
     cout << "Reverse string(brute):" << brute_rev_str(str) << endl;
-    cout << "Reverse string(optimized):" << optimized_rev_str(str);
+    cout << "Reverse string(optimized):" << optimized_rev_str(str) << endl;
+    cout << "Reverse full-string: " << reverse_full(str) << endl;
+    cout << "Reverse full-string(optimized): " << optimized_rev_full(str);
 }
