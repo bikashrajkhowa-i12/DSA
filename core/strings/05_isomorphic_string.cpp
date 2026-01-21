@@ -64,8 +64,8 @@ bool is_isomorphic(string s1, string s2)
 
 int main()
 {
-    string str1 = "title";
-    string str2 = "paper";
+    string str1 = "badc";
+    string str2 = "baba";
 
     cout << "Is isomorphic strings: " << boolalpha << is_isomorphic(str1, str2);
 }
