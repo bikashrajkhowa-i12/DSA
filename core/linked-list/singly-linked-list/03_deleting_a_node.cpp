@@ -53,6 +53,7 @@ Node *delete_tail(Node *head)
     if (head == NULL || head->next == NULL)
     {
         delete head;
+        return NULL;
     }
 
     Node *temp = head;
