@@ -114,6 +114,39 @@ Node *delete_tail(Node *head)
     return head;
 }
 
+Node *delete_specific(Node *head, int data)
+{
+    if (head == NULL)
+        return NULL;
+
+    if (head->data == data)
+    {
+        return delete_head(head);
+    }
+
+    Node *curr = head;
+    // 11 12 13 14
+    while (curr->next != NULL && curr->next->data != data)
+    {
+        curr = curr->next;
+    }
+
+    // incase data not found
+    if (curr->next == NULL)
+        return head;
+
+    Node *deleteNode = curr->next;
+    curr->next = deleteNode->next;
+    if (deleteNode->next != NULL)
+        curr->next->prev = curr;
+
+    deleteNode->prev = nullptr;
+    deleteNode->next = nullptr;
+    delete deleteNode;
+
+    return head;
+}
+
 int main()
 {
     vector<int> arr = {10, 11, 12, 13, 14, 15};
@@ -133,5 +166,11 @@ int main()
     cout << endl
          << "\nDelete tail: \n";
     head = delete_tail(head);
+    print_doubly_LL(head);
+
+    // delete tail
+    cout << endl
+         << "\nDelete specific: \n";
+    head = delete_specific(head, 13);
     print_doubly_LL(head);
 }
