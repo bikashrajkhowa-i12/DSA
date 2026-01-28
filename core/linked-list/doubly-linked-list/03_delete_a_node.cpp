@@ -151,7 +151,6 @@ int main()
 {
     vector<int> arr = {10, 11, 12, 13, 14, 15};
     Node *head = convert_to_2d_LL(arr);
-    ;
 
     cout << "Original doubly-LL:" << endl;
     print_doubly_LL(head);
