@@ -94,6 +94,50 @@ Node *insert_tail(Node *head, int data)
     return head;
 }
 
+Node *insert_specific(Node *head, int index, int data)
+{
+    if (head == NULL)
+    {
+        if (index == 0)
+        {
+            Node *head = new Node(data);
+            head->next = head;
+            return head;
+        }
+        else
+        {
+            return NULL;
+        }
+    }
+
+    if (index == 0)
+    {
+        return insert_head(head, data);
+    }
+
+    // 10 11 12 13 14
+    int idx = 0;
+    Node *cur = head;
+
+    while (cur->next != head && idx + 1 != index)
+    {
+        idx++;
+        cur = cur->next;
+    }
+
+    if (cur->next == head && idx + 1 != index)
+    {
+        cout << "Index out of bound!\n";
+        return head;
+    }
+
+    Node *newNode = new Node(data);
+    newNode->next = cur->next;
+    cur->next = newNode;
+
+    return head;
+}
+
 int main()
 {
     vector<int> arr = {3, 4};
@@ -113,5 +157,9 @@ int main()
     head = insert_tail(head, 6);
     print_CLL(head);
 
-    // insert specific //TODO:
+    // insert specific
+    cout << endl
+         << "\nInsert specific: ";
+    head = insert_specific(head, 3, 7);
+    print_CLL(head);
 }
