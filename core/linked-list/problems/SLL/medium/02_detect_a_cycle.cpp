@@ -26,7 +26,9 @@ public:
         next = nullptr;
     }
 };
-// brute force is using hashmap(unordered map)
+// brute force is using hashmap(unordered set)
+// TC: O(n); SC: O(n)
+
 // Optimized TC: O(n); SC: O(1)
 bool detect_cycle(Node *head)
 {
