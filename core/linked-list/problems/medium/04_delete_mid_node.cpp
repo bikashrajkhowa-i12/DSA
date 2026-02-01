@@ -103,7 +103,7 @@ Node *brute_delete_mid(Node *head)
 Node *delete_mid(Node *head)
 {
     if (head == NULL || head->next == NULL)
-        return head;
+        return NULL;
 
     Node *slow = head;
     Node *fast = head;
