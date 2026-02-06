@@ -200,3 +200,5 @@ _Designed for 15–30 min rapid recall before interviews_
 - Handle edge cases
 
 ---
+
+## command: g++ [options] filename.cpp -o executable_name && ./executable_name
