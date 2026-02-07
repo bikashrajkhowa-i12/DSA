@@ -6,13 +6,13 @@ hint: push, pop, top, size
 #include <bits/stdc++.h>
 using namespace std;
 
-class ImplementStack
+class Stack
 {
     int arr[100]; // size
     int top;
 
 public:
-    ImplementStack() // constructor
+    Stack() // constructor
     {
         top = -1;
     }
@@ -72,11 +72,11 @@ public:
 
 int main()
 {
-    ImplementStack st;
+    Stack st;
 
     while (true)
     {
-        cout << "\n\nSelect an operation:\n";
+        cout << "\n\nSelect a stack operation:\n";
         cout << "1. Push\n2. Pop\n3. Top\n4. IsEmpty\n5. Size\n0. Exit\n";
         cout << "Your option: ";
 
