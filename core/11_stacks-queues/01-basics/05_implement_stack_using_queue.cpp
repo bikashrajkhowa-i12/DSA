@@ -2,7 +2,8 @@
 Implement stack data-structure using queue.
 */
 
-#include <bits/stdc++.h>
+#include <iostream>
+#include <queue>
 using namespace std;
 
 class Stack
@@ -21,8 +22,11 @@ public:
         return q.size() > INT_MAX;
     }
 
+    // TC: O(N);
     void push(int x)
     {
+        if (isFull())
+            return;
         q.push(x);
 
         int size = q.size();
@@ -34,6 +38,7 @@ public:
         }
     }
 
+    // TC: O(1);
     void pop()
     {
         if (isEmpty())
@@ -44,6 +49,7 @@ public:
         q.pop();
     }
 
+    // TC: O(1);
     int top()
     {
         if (isEmpty())
@@ -54,6 +60,7 @@ public:
         return q.front();
     }
 
+    // TC: O(1);
     int size()
     {
         return q.size();
@@ -66,7 +73,7 @@ int main()
 
     while (true)
     {
-        cout << "*******************STACK USING LINKED-LIST******************\n";
+        cout << "*******************STACK USING QUEUE******************\n";
         cout << "\n\nSelect a stack operation:\n";
         cout << "1. Push\n2. Pop\n3. Top\n4. IsEmpty\n5. Size\n0. Exit\n";
         cout << "Your option: ";
