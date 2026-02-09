@@ -1,5 +1,4 @@
-DATA STRUCTURES & ALGORITHMS (DSA)
-----------------------------------
+## DATA STRUCTURES & ALGORITHMS (DSA)
 
 1. **What is DSA?**
    - Data Structures: Ways to organize and store data for efficient access and modification.
@@ -60,4 +59,7 @@ DATA STRUCTURES & ALGORITHMS (DSA)
    - Books: “Cracking the Coding Interview,” “Introduction to Algorithms (CLRS)”
    - YouTube channels: FreeCodeCamp, Tushar Roy, Abdul Bari
 
-----------------------------------
+9. **Command**
+   - g++ [options] filename.cpp -o executable_name && ./executable_name
+
+---
