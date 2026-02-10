@@ -29,6 +29,7 @@ Output:
 
 using namespace std;
 
+// TC: O(1); SC: O(2n) // for 2 stacks
 class MyStack
 {
     stack<pair<int, int>> st;
@@ -47,16 +48,15 @@ public:
         }
     }
 
-    int pop()
+    void pop()
     {
         if (st.empty())
         {
             cout << "Stack is empty!" << endl;
-            return -1;
+            return;
         }
         int topElement = st.top().first;
         st.pop();
-        return topElement;
     }
 
     int top()
@@ -80,9 +80,72 @@ public:
     }
 };
 
+// optimized to TC: O(1); SC: O(n) incase of single stack and (2LL * x - minVal)
+class MinStack
+{
+    stack<long long> st;
+    long long minVal;
+
+public:
+    MinStack()
+    {
+        minVal = LLONG_MAX;
+    }
+
+    void push(int x)
+    {
+        if (st.empty())
+        {
+            st.push(x);
+            minVal = x;
+        }
+        else if (x >= minVal)
+        {
+            st.push(x);
+        }
+        else
+        {
+            // encode value
+            st.push(2LL * x - minVal);
+            minVal = x;
+        }
+    }
+
+    void pop()
+    {
+        if (st.empty())
+        {
+            return;
+        }
+
+        long long top = st.top();
+        st.pop();
+
+        if (top < minVal)
+        {
+            // decode previous min
+            minVal = 2 * minVal - top;
+        }
+    }
+
+    int top()
+    {
+        long long top = st.top();
+        if (top < minVal)
+            return minVal; // real value
+        return top;
+    }
+
+    int getMin()
+    {
+        return minVal;
+    }
+};
+
 int main()
 {
-    MyStack st;
+    // MyStack st;
+    MinStack st;
     while (true)
     {
         cout << "\n\nSelect a stack operation:\n";
@@ -104,7 +167,7 @@ int main()
         }
 
         case 2:
-            cout << "Popped: " << st.pop() << endl;
+            st.pop();
             break;
 
         case 3:
