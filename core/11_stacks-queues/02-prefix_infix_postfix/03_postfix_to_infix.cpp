@@ -31,13 +31,13 @@ string postfix_to_infix(string postfix)
         // operator
         else
         {
-            string c2 = st.top();
-            st.pop();
-
             string c1 = st.top();
             st.pop();
 
-            st.push("(" + c1 + postfix[i] + c2 + ")");
+            string c2 = st.top();
+            st.pop();
+
+            st.push("(" + c2 + postfix[i] + c1 + ")");
         }
 
         i++;
