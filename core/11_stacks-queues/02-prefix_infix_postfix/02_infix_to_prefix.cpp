@@ -39,7 +39,8 @@ int priority(char c)
     return -1;
 }
 
-// Convert infix to prefix
+// TC: O(n); SC: O(n)
+//  Convert infix to prefix
 string infix_to_prefix(string &infix)
 {
     stack<char> st;
