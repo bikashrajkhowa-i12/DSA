@@ -45,15 +45,16 @@ Output:
 
 using namespace std;
 
+// TC: O(n); SC: O(n)
 vector<int> circular_NGE(vector<int> &arr)
 {
     stack<int> st;
     int n = arr.size();
     vector<int> res(n);
 
-    for (int i = 2 * n - 1; i >= 0; i--)
+    for (int i = 2 * n - 1; i >= 0; i--) // double the array to create a circular mechanism
     {
-        while (!st.empty() && st.top() <= arr[i % n])
+        while (!st.empty() && st.top() <= arr[i % n]) // modulo to find the actual-index (between 0 to n)
         {
             st.pop();
         }

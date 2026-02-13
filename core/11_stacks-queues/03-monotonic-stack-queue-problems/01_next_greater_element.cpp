@@ -34,6 +34,7 @@ Output: [3, 4, 4, -1]
 
 using namespace std;
 
+// TC: O(n); SC: O(n)
 vector<int> NGE(vector<int> &arr)
 {
     stack<int> st;
