@@ -27,9 +27,12 @@ int longest_subarray_sum_length(vector<int> &arr, int k)
         for (int j = i; j < arr.size(); j++)
         {
             sum += arr[j];
+
+            // if only positives (not even 0)
             if (sum > k)
                 break;
-            else if (sum == k)
+
+            if (sum == k)
                 maxLen = max(maxLen, j - i + 1);
         }
     }
@@ -78,7 +81,7 @@ int main()
         cout << i << ", ";
     }
     cout << endl
-         << "Sum(k): " << k;
+         << "k: " << k;
     cout << endl
          << "Result(brute): " << longest_subarray_sum_length(arr, k);
     cout << endl
