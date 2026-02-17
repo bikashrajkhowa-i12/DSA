@@ -36,7 +36,7 @@ int longest_subarray_sum_length(vector<int> &arr, int k)
     return maxLen;
 }
 
-/* APPROACH
+/* APPROACH (sliding-window)
 for each right:
     include arr[right]
 
