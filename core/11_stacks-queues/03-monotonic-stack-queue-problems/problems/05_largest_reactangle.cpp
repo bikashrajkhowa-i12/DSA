@@ -48,6 +48,7 @@ vector<int> NLE(vector<int> &arr)
     return res;
 }
 
+// TC: O(n); SC: O(n)
 int area_of_rectangle(vector<int> &arr)
 {
     int max_area = 0;
@@ -60,6 +61,28 @@ int area_of_rectangle(vector<int> &arr)
         max_area = max(arr[i] * width, max_area);
     }
     return max_area;
+}
+
+// minimal verison
+int area_of_rectangle_part2(vector<int> &arr)
+{
+    int maxArea = 0;
+    stack<int> st;
+
+    st.push(0); // for computation beyond the size of arr
+    for (int i = 0; i < arr.size(); i++)
+    {
+        while (!st.empty() && arr[st.top()] > arr[i]) // means if next element is smaller than top of stack, calculate area till cur
+        {
+            int height = arr[st.top()];
+            st.pop();
+
+            int width = st.empty() ? i : i - st.top() - 1;
+            maxArea = max(maxArea, height * width);
+        }
+        st.push(i);
+    }
+    return maxArea;
 }
 
 int main()
@@ -76,4 +99,7 @@ int main()
 
     cout << endl
          << "Area of the largest rectangle: " << area_of_rectangle(heights);
+
+    cout << endl
+         << "Area of the largest rectangle(short): " << area_of_rectangle_part2(heights);
 }
