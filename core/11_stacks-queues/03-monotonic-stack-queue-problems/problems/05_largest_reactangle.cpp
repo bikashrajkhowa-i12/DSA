@@ -69,10 +69,10 @@ int area_of_rectangle_part2(vector<int> &arr)
     int maxArea = 0;
     stack<int> st;
 
-    st.push(0); // for computation beyond the size of arr
-    for (int i = 0; i < arr.size(); i++)
+    for (int i = 0; i <= arr.size(); i++)
     {
-        while (!st.empty() && arr[st.top()] > arr[i]) // means if next element is smaller than top of stack, calculate area till cur
+        int currHeight = i == arr.size() ? 0 : arr[i];
+        while (!st.empty() && arr[st.top()] > currHeight) // means if next element is smaller than top of stack, calculate area till cur
         {
             int height = arr[st.top()];
             st.pop();
