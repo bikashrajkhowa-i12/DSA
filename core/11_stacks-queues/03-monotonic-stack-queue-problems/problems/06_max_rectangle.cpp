@@ -24,7 +24,11 @@ return maxArea;
 #include <stack>
 using namespace std;
 
-// core intuition: At index i, whose NLE did I just discover? Calculate the area for its previous
+/*  - core intuition: At index i, whose NLE did I just discover? Calculate the area for its previous
+    - We calculate area whenever the current height is smaller than the height at stack top: arr[stack.top()] > arr[i]
+    - Because the bar at stack.top() just found its Next Smaller Element on the right → which is i.
+    - So its rectangle cannot extend further right, meaning we now know its full width → we can compute its area.
+*/
 int calculate_area(vector<int> &arr)
 {
     stack<int> st;
