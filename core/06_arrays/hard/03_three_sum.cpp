@@ -87,9 +87,12 @@ vector<vector<int>> better_3sum(vector<int> &arr)
 }
 
 /*
-Optimal appraoch
-TC:
+Optimal approach
+TC: O(n log n) + O(n*n) = O(n*n);
 SC:
+    - O(n*n); //with resultant array output
+    - O(log n) // without resultant array, only for the sorting
+
 */
 vector<vector<int>> optimal_3sum(vector<int> &arr)
 {
