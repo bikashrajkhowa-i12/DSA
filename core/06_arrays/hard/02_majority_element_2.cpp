@@ -50,6 +50,50 @@ frequency > n/3 means at max there can be 2 elements appearing more than twice..
 // TC: ; SC:
 vector<int> optimized_majority_element(vector<int> &arr)
 {
+    vector<int> res;
+    int counter1 = 0, element1 = INT_MIN;
+    int counter2 = 0, element2 = INT_MIN;
+
+    for (int i = 0; i < arr.size(); i++)
+    {
+        if (counter1 == 0 && arr[i] != element2)
+        {
+            counter1 = 1;
+            element1 = arr[i];
+        }
+        else if (counter2 == 0 && arr[i] != element1)
+        {
+            counter2 = 1;
+            element2 = arr[i];
+        }
+        else if (element1 == arr[i])
+        {
+            counter1++;
+        }
+        else if (element2 == arr[i])
+        {
+            counter2++;
+        }
+        else
+        {
+            counter1--;
+            counter2--;
+        }
+    }
+    int freq1 = 0, freq2 = 0;
+    for (int i = 0; i < arr.size(); i++)
+    {
+        if (arr[i] == element1)
+            freq1++;
+        if (arr[i] == element2)
+            freq2++;
+    }
+
+    if (freq1 > arr.size() / 3)
+        res.push_back(element1);
+    if (freq2 > arr.size() / 3)
+        res.push_back(element2);
+    return res;
 }
 
 int main()
@@ -64,7 +108,7 @@ int main()
             cout << arr[i] << ", ";
     }
 
-    vector<int> result = brute_majority_element(arr);
+    vector<int> result = optimized_majority_element(arr);
     cout << endl
          << "Majority elements(n/3): [";
     for (int i = 0; i < result.size(); i++)
