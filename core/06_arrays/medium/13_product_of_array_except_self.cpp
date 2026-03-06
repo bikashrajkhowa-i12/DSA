@@ -39,10 +39,11 @@ vector<int> brute(vector<int> &nums)
 
 vector<int> prefix_prod(vector<int> &arr)
 {
-    vector<int> res(arr.size());
+    int n = arr.size();
+    vector<int> res(n);
     int prod = arr[0];
 
-    for (int i = 0; i < arr.size(); i++)
+    for (int i = 0; i < n; i++)
     {
         if (i == 0)
             res[i] = 1;
@@ -57,12 +58,13 @@ vector<int> prefix_prod(vector<int> &arr)
 
 vector<int> suffix_prod(vector<int> &arr)
 {
-    vector<int> res(arr.size());
-    int prod = arr[arr.size() - 1];
+    int n = arr.size();
+    vector<int> res(n);
+    int prod = arr[n - 1];
 
-    for (int i = arr.size() - 1; i >= 0; i--)
+    for (int i = n - 1; i >= 0; i--)
     {
-        if (i == arr.size() - 1)
+        if (i == n - 1)
             res[i] = 1;
         else
         {
@@ -84,12 +86,13 @@ vector<int> suffix_prod(vector<int> &arr)
 */
 vector<int> optimal(vector<int> &arr)
 {
+    int n = arr.size();
     vector<int> prefix = prefix_prod(arr);
     vector<int> suffix = suffix_prod(arr);
-    vector<int> res;
-    for (int i = 0; i < arr.size(); i++)
+    vector<int> res(n);
+    for (int i = 0; i < n; i++)
     {
-        res.push_back(prefix[i] * suffix[i]);
+        res[i] = prefix[i] * suffix[i];
     }
     return res;
 }
@@ -97,10 +100,11 @@ vector<int> optimal(vector<int> &arr)
 int main()
 {
     vector<int> arr = {1, 2, 3, 4};
+    int n = arr.size();
     cout << "Given array: [";
-    for (int i = 0; i < arr.size(); i++)
+    for (int i = 0; i < n; i++)
     {
-        if (i == arr.size() - 1)
+        if (i == n - 1)
             cout << arr[i] << "]";
         else
             cout << arr[i] << ", ";
@@ -108,12 +112,12 @@ int main()
 
     // vector<int> res = brute(arr);
     vector<int> res = optimal(arr);
-
+    int m = res.size();
     cout << endl
          << "Result: [";
-    for (int i = 0; i < res.size(); i++)
+    for (int i = 0; i < m; i++)
     {
-        if (i == res.size() - 1)
+        if (i == m - 1)
             cout << res[i] << "]";
         else
             cout << res[i] << ", ";
