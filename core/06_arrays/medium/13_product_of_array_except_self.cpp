@@ -28,12 +28,68 @@ vector<int> brute(vector<int> &nums)
         int prod = 1;
         for (int j = 0; j < nums.size(); j++)
         {
-            if (j != i)
-            {
-                prod *= nums[j];
-            }
+            if (j == i)
+                continue;
+            prod *= nums[j];
         }
         res.push_back(prod);
+    }
+    return res;
+}
+
+vector<int> prefix_prod(vector<int> &arr)
+{
+    vector<int> res(arr.size());
+    int prod = arr[0];
+
+    for (int i = 0; i < arr.size(); i++)
+    {
+        if (i == 0)
+            res[i] = 1;
+        else
+        {
+            res[i] = prod;
+            prod *= arr[i];
+        }
+    }
+    return res;
+}
+
+vector<int> suffix_prod(vector<int> &arr)
+{
+    vector<int> res(arr.size());
+    int prod = arr[arr.size() - 1];
+
+    for (int i = arr.size() - 1; i >= 0; i--)
+    {
+        if (i == arr.size() - 1)
+            res[i] = 1;
+        else
+        {
+            res[i] = prod;
+            prod *= arr[i];
+        }
+    }
+    return res;
+}
+
+/* optimal approach
+    - prefix_prod[i]
+    - suffix_prod[i]
+    - product of prefix[i] * product of suffix[i]
+
+    Complexity:
+        - TC: O(n) + O(n) + O(n) = O(3n) => O(n)
+        - SC: O(n) + O(n) = O(2n) => O(n) excluding the output array
+*/
+vector<int> optimal(vector<int> &arr)
+{
+    vector<int> prefix = prefix_prod(arr);
+    vector<int> suffix = suffix_prod(arr);
+    vector<int> res;
+    for (int i = 0; i < arr.size(); i++)
+    {
+        res.push_back(prefix[i] * suffix[i]);
     }
     return res;
 }
@@ -50,7 +106,9 @@ int main()
             cout << arr[i] << ", ";
     }
 
-    vector<int> res = brute(arr);
+    // vector<int> res = brute(arr);
+    vector<int> res = optimal(arr);
+
     cout << endl
          << "Result: [";
     for (int i = 0; i < res.size(); i++)
