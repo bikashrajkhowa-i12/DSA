@@ -54,7 +54,7 @@ int brute_max_product(vector<int> &arr)
 */
 int optimal_max_product(vector<int> &arr)
 {
-    int res = 0;
+    int res = arr[0];
     int minProd = arr[0];
     int maxProd = arr[0];
 
