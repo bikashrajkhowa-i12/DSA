@@ -53,6 +53,44 @@ void brute_merge_arrays(vector<int> &arr1, int m, vector<int> &arr2, int n)
     }
 }
 
+/* optimal approach
+    core idea:  Write from the back — compare the largest elements of both arrays and place the
+                bigger one at the end of arr1, moving inward.
+                This works because arr1 has empty slots at the end, so you never overwrite data
+                you still need.
+    complexity:
+        - TC: O(m+n)
+        - SC: O(1)
+*/
+void optimized_merge_arrays(vector<int> &arr1, int m, vector<int> &arr2, int n)
+{
+    int i = m - 1;
+    int j = n - 1;
+    int k = (m + n) - 1;
+
+    while (i >= 0 && j >= 0)
+    {
+        if (arr1[i] > arr2[j])
+        {
+            arr1[k] = arr1[i];
+            i--;
+        }
+        else
+        {
+            arr1[k] = arr2[j];
+            j--;
+        }
+        k--;
+    }
+
+    while (j >= 0)
+    {
+        arr1[k] = arr2[j];
+        j--;
+        k--;
+    }
+}
+
 int main()
 {
     vector<int> nums1 = {1, 2, 3, 0, 0, 0};
@@ -78,7 +116,8 @@ int main()
             cout << nums2[i] << ", ";
     }
 
-    brute_merge_arrays(nums1, m, nums2, n);
+    // brute_merge_arrays(nums1, m, nums2, n);
+    optimized_merge_arrays(nums1, m, nums2, n);
     cout << endl
          << "Merged: [";
     for (int i = 0; i < nums1.size(); i++)
