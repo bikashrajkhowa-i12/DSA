@@ -11,16 +11,9 @@ vector<int> prefix_sum(const vector<int> &arr)
 
     for (int i = 0; i < n; i++)
     {
-        if (i == 0)
-        {
-            res[i] = sum;
-        }
-        else
-        {
-            sum += arr[i]; // remove incase of exlcuding self
-            res[i] = sum;
-            // sum += arr[i]; incase of excluding self
-        }
+        if (i != 0)
+            sum += arr[i];
+        res[i] = sum;
     }
     return res;
 }
@@ -34,16 +27,9 @@ vector<int> suffix_sum(const vector<int> &arr)
 
     for (int i = n - 1; i >= 0; i--)
     {
-        if (i == n - 1)
-        {
-            res[i] = sum;
-        }
-        else
-        {
-            sum += arr[i]; // remove incase of exlcuding self
-            res[i] = sum;
-            // sum += arr[i]; incase of excluding self
-        }
+        if (i != n - 1)
+            sum += arr[i];
+        res[i] = sum;
     }
     return res;
 }
