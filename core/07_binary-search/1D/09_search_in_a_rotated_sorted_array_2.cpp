@@ -74,7 +74,7 @@ bool optimized_search(vector<int> &nums, int target)
             return true;
 
         // Can't determine sorted half — shrink window
-        if (nums[low] == nums[high])
+        if (nums[low] == nums[mid] && nums[mid] == nums[high])
         {
             low++;
             high--;
@@ -110,8 +110,8 @@ bool optimized_search(vector<int> &nums, int target)
 
 int main()
 {
-    vector<int> nums = {1, 0, 1, 1, 1};
-    int target = 0;
+    vector<int> nums = {1, 2, 1};
+    int target = 1;
 
     cout << "Input nums: [";
     for (int i = 0; i < nums.size(); i++)
