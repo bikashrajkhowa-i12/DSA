@@ -46,6 +46,11 @@ bool brute_search(vector<int> &nums, int target)
 
 /* Optimal-approach
     Idea: find the sorted half and apply Binary-search (since its rotated-sorted)
+    Steps:
+        - nums[mid] == target -> return
+        - Ambiguous (nums[low] == nums[high]) → shrink both ends
+        - Left unsorted (nums[low] > nums[mid]) → right half is sorted, check there
+        - Left sorted (else) → check left half, otherwise go right
     Complexity:
         - TC: O(log n)
         - SC: O(1)
@@ -68,8 +73,14 @@ bool optimized_search(vector<int> &nums, int target)
         if (nums[mid] == target)
             return true;
 
-        // shift right
-        if (nums[low] > nums[mid]) // left unsorted; right sorted
+        // Can't determine sorted half — shrink window
+        if (nums[low] == nums[high])
+        {
+            low++;
+            high--;
+        }
+        // shift to right-half
+        else if (nums[low] > nums[mid]) // left unsorted; right sorted
         {
             if (nums[mid] <= target && target <= nums[high])
             {
@@ -99,8 +110,8 @@ bool optimized_search(vector<int> &nums, int target)
 
 int main()
 {
-    vector<int> nums = {4, 5, 6, 0, 1, 2, 3};
-    int target = 5;
+    vector<int> nums = {1, 0, 1, 1, 1};
+    int target = 0;
 
     cout << "Input nums: [";
     for (int i = 0; i < nums.size(); i++)
