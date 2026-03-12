@@ -39,7 +39,12 @@ int total_hours_required(vector<int> &piles, int speed)
     int totalHours = 0;
 
     for (int pile : piles)
-        totalHours += (pile + speed - 1) / speed;
+        /*
+            - ceil is for float and float operations are slower than integer.
+            - ceil(a / b) for integers = (a + b - 1) / b
+            - used to perform ceiling division without floating point
+        */
+        totalHours += (pile + speed - 1) / speed; // or ceil((double)pile / speed)
 
     return totalHours;
 }
