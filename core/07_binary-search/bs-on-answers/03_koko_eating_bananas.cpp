@@ -82,9 +82,9 @@ int optimized_min_speed(vector<int> &arr, int h)
     while (low <= high)
     {
         int mid = (low + high) / 2;
-        // requiredSpeed of eating min bananas/hr
-        int requiredSpeed = total_hours_required(arr, mid);
-        if (requiredSpeed <= h)
+        // hours needed if eating speed = mid
+        int requiredHours = total_hours_required(arr, mid);
+        if (requiredHours <= h)
             high = mid - 1;
         else
             low = mid + 1;
