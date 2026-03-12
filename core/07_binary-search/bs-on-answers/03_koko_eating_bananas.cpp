@@ -21,7 +21,7 @@ Output: 23
 */
 #include <iostream>
 #include <vector>
-#include <cmath>
+#include <algorithm>
 
 using namespace std;
 
@@ -71,10 +71,31 @@ int brute_min_speed(vector<int> &arr, int h)
     return maxPile;
 }
 
+/* Optimized -> apply binary search on answer
+    TC: O(n) + O(n log(maxPile)) => O(n log(maxPile))
+    SC: O(1)
+*/
+int optimized_min_speed(vector<int> &arr, int h)
+{
+    int low = 1, high = max_pile(arr);
+
+    while (low <= high)
+    {
+        int mid = (low + high) / 2;
+        // requiredSpeed of eating min bananas/hr
+        int requiredSpeed = total_hours_required(arr, mid);
+        if (requiredSpeed <= h)
+            high = mid - 1;
+        else
+            low = mid + 1;
+    }
+    return low;
+}
+
 int main()
 {
-    vector<int> piles = {30, 11, 23, 4, 20};
-    int h = 6;
+    vector<int> piles = {3, 6, 7, 11};
+    int h = 8;
 
     cout << "Given piles: [";
     for (int i = 0; i < piles.size(); i++)
@@ -90,4 +111,6 @@ int main()
          << "Minimum bananas to eat: ";
     cout << endl
          << "\tBrute: " << brute_min_speed(piles, h);
+    cout << endl
+         << "\tOptimized: " << optimized_min_speed(piles, h);
 }
