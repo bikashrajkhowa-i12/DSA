@@ -50,8 +50,8 @@ int total_hours_required(vector<int> &piles, int speed)
         - For each k compute total hours = Σ ceil(pile / k).
         - Return first k where hours ≤ h.
     Complexity:
-        - TC:  O(n * max(pile))
-        - SC:  O(n log(max(pile)))
+        - TC:  O(n) + O(maxPile * n) => O(n * maxPile)
+        - SC:  O(1)
 */
 int brute_min_speed(vector<int> &arr, int h)
 {
