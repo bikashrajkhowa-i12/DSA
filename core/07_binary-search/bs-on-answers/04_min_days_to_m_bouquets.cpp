@@ -118,11 +118,44 @@ int brute_min_days(vector<int> &bloomdays, int m, int k)
     return -1;
 }
 
+/* optimized
+    TC: O(n) + O(log(maxDay-minDays) * n) => O(n log(maxDay-minDays))
+    SC: O(1)
+*/
+int optimized_min_days(vector<int> &bloomdays, int m, int k)
+{
+    int n = bloomdays.size();
+    if (n == 0 || n < (m * k))
+        return -1;
+
+    auto [minDays, maxDays] = days_range(bloomdays);
+    int low = minDays;
+    int high = maxDays;
+    int resultDays = -1;
+
+    while (low <= high)
+    {
+        int mid = (low + high) / 2;
+        int possibleBouquets = bouquets_possible(bloomdays, mid, k);
+
+        if (possibleBouquets >= m)
+        {
+            resultDays = mid;
+            high = mid - 1;
+        }
+        else
+        {
+            low = mid + 1;
+        }
+    }
+    return resultDays;
+}
+
 int main()
 {
-    vector<int> bloomDays = {7, 7, 7, 7, 12, 7, 7};
-    int m = 2;
-    int k = 3;
+    vector<int> bloomDays = {1, 10, 3, 10, 2};
+    int m = 3;
+    int k = 1;
     cout << "Bloom days: ", print_arr(bloomDays);
     cout << endl
          << "Total bouquets(m): " << m;
@@ -130,5 +163,7 @@ int main()
          << "Flowers per bouquet(k): " << k;
 
     cout << endl
-         << "Min days for m bouquets: " << brute_min_days(bloomDays, m, k);
+         << "Min days(brute): " << brute_min_days(bloomDays, m, k);
+    cout << endl
+         << "Min days(optimized): " << optimized_min_days(bloomDays, m, k);
 }
