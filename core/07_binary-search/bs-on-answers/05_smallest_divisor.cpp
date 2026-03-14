@@ -75,15 +75,41 @@ int brute_smallest_divisor(const vector<int> &arr, int threshold)
     return maxNum;
 }
 
+int optimized_smallest_divisor(vector<int> &arr, int threshold)
+{
+    int n = arr.size();
+    if (n == 0)
+        return 0;
+
+    int maxNum = *max_element(arr.begin(), arr.end());
+    int low = 1, high = maxNum;
+
+    while (low <= high)
+    {
+        int mid = (low + high) / 2;
+        int divisorSum = divisor_sum(arr, mid);
+        if (divisorSum <= threshold)
+            high = mid - 1;
+        else
+            low = mid + 1;
+    }
+    return low;
+}
+
 int main()
 {
-    vector<int> nums = {44, 22, 33, 11, 1};
-    int threshold = 5;
+    vector<int> nums = {1, 2, 5, 9};
+    int threshold = 6;
     cout << "Nums: ", print_arr(nums);
     cout << endl
          << "Threshold: " << threshold;
 
     cout << endl
-         << "Smallest divisor (<= threshold): " << brute_smallest_divisor(nums, threshold);
+         << "Smallest divisor (<= threshold): ";
+
+    cout << endl
+         << "\tBrute-force: " << brute_smallest_divisor(nums, threshold);
+    cout << endl
+         << "\tOptimized: " << optimized_smallest_divisor(nums, threshold);
     return 0;
 }
