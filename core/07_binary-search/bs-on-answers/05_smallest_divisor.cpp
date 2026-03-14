@@ -56,6 +56,10 @@ int divisor_sum(const vector<int> &arr, int divisor)
     return sum;
 }
 
+/* Brute-force
+    TC: O(n) + O(n * maxNum) => O(n * maxNum)
+    SC: O(1)
+*/
 int brute_smallest_divisor(const vector<int> &arr, int threshold)
 {
     int n = arr.size();
@@ -75,6 +79,10 @@ int brute_smallest_divisor(const vector<int> &arr, int threshold)
     return maxNum;
 }
 
+/* Optimized
+    TC: O(n) + O(n * log(maxNum)) => O(n * log(maxNum))
+    SC: O(1)
+*/
 int optimized_smallest_divisor(vector<int> &arr, int threshold)
 {
     int n = arr.size();
