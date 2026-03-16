@@ -28,11 +28,62 @@ Output: [
 #include <vector>
 using namespace std;
 
+void markRow(vector<vector<int>> &arr, int i, int m)
+{
+    for (int j = 0; j < m; j++)
+    {
+        if (arr[i][j] != 0)
+            arr[i][j] = -1;
+    }
+}
+
+void markCol(vector<vector<int>> &arr, int j, int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        if (arr[i][j] != 0)
+            arr[i][j] = -1;
+    }
+}
+
 /* brute-force
-    TC: O(n * n)
+    TC: O(nm(n+m))
+    SC: O(1)
+*/
+
+void brute_set_matrix_zero(vector<vector<int>> &arr)
+{
+    int n = arr.size();
+    int m = arr[0].size();
+
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            if (arr[i][j] == 0)
+            {
+                markRow(arr, i, m);
+                markCol(arr, j, n);
+            }
+        }
+    }
+
+    // convert -1 → 0
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            if (arr[i][j] == -1)
+                arr[i][j] = 0;
+        }
+    }
+}
+
+/* better
+    TC: O(n * m)
     SC: O(n) + O(m) => O(m+n)
 */
-void set_matrix_zero(vector<vector<int>> &arr)
+void better_set_matrix_zero(vector<vector<int>> &arr)
 {
     int n = arr.size();
     int m = arr[0].size();
@@ -62,8 +113,13 @@ void set_matrix_zero(vector<vector<int>> &arr)
     }
 }
 
+void optimized_set_matrix_zero(vector<vector<int>> &arr)
+{
+}
+
 int main()
 {
+    // vector<vector<int>> arr = {{0, 1, 2, 0}, {3, 4, 5, 2}, {1, 3, 1, 5}};
     vector<vector<int>> arr = {{1, 1, 1}, {1, 0, 1}, {1, 1, 1}};
     cout << "[";
     for (int i = 0; i < arr.size(); i++)
@@ -83,7 +139,9 @@ int main()
 
     cout << "]";
 
-    set_matrix_zero(arr);
+    // brute_set_matrix_zero(arr);
+    better_set_matrix_zero(arr);
+
     cout << endl
          << "Set martix to zero: \n";
     for (int i = 0; i < arr.size(); i++)
