@@ -67,7 +67,7 @@ void print_weights(const vector<int> &weights)
     return;
 }
 
-int max_capacity(const vector<int> &weights)
+int sum(const vector<int> &weights)
 {
     int n = weights.size();
     int sum = 0;
@@ -99,12 +99,11 @@ int total_days(const vector<int> &weights, int cap)
 /* brute-force
     - TC: O(n) + O(maxCap * n) => O(n * maxCap)
     - SC: O(1)
-
 */
 int brute_min_cap(const vector<int> &weights, const int &days)
 {
     int minCap = *max_element(weights.begin(), weights.end()); // min weight-capacity
-    int maxCap = max_capacity(weights);
+    int maxCap = sum(weights);
 
     for (int cap = minCap; cap <= maxCap; cap++)
     {
@@ -113,6 +112,30 @@ int brute_min_cap(const vector<int> &weights, const int &days)
             return cap;
     }
     return maxCap;
+}
+
+/* optimized
+    - TC: O(n) + O(log(maxCap) * n) => O(n * log(maxCap))
+    - SC: O(1)
+*/
+int optimized_min_cap(const vector<int> &weights, const int &days)
+{
+    int low = *max_element(weights.begin(), weights.end()); // min weight-capacity
+    int high = sum(weights);
+
+    while (low <= high)
+    {
+        int mid = (low + high) / 2;
+        int totalDays = total_days(weights, mid);
+
+        if (totalDays > days)
+        {
+            low = mid + 1;
+        }
+        else
+            high = mid - 1;
+    }
+    return low;
 }
 
 int main()
@@ -127,4 +150,6 @@ int main()
          << "Minimum capacity/day: ";
     cout << endl
          << "brute: " << brute_min_cap(weights, days);
+    cout << endl
+         << "optimized: " << optimized_min_cap(weights, days);
 }
