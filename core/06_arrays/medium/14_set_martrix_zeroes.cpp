@@ -46,9 +46,15 @@ void markCol(vector<vector<int>> &arr, int j, int n)
     }
 }
 
-/* brute-force
-    TC: O(nm(n+m))
-    SC: O(1)
+/*
+Brute Force ********************************************
+    - When you see 0 -> mark its row & column (use -1 to avoid chain effect)
+    - Continue scanning without converting to 0 immediately
+    - After full traversal -> convert all -1 to 0
+
+    - Complexity:
+        - TC: O(n*m*(n+m))
+        - SC: O(1)
 */
 
 void brute_set_matrix_zero(vector<vector<int>> &arr)
@@ -79,9 +85,13 @@ void brute_set_matrix_zero(vector<vector<int>> &arr)
     }
 }
 
-/* better
-    TC: O(n * m)
-    SC: O(n) + O(m) => O(m+n)
+/*
+Better ********************************************
+    - Scan matrix -> store which rows & cols need to be zero (row[], col[])
+    - Traverse again -> if row[i] or col[j] is marked -> set arr[i][j] = 0
+    - Complexity:
+        - TC: O(n*m)
+        - SC: O(n+m)
 */
 void better_set_matrix_zero(vector<vector<int>> &arr)
 {
@@ -113,8 +123,62 @@ void better_set_matrix_zero(vector<vector<int>> &arr)
     }
 }
 
+/*
+Optimal ********************************************
+    - Store instructions in first row/column
+    - Apply instructions to inner matrix
+    - Finally apply instructions to first row/column
+
+    - Complexity:
+        - TC: O(n*m)
+        - SC: O(1)
+*/
+
 void optimized_set_matrix_zero(vector<vector<int>> &arr)
 {
+    int n = arr.size();
+    int m = arr[0].size();
+    int col0 = 1;
+
+    // Step 1: mark rows and columns
+    for (int i = 0; i < n; i++)
+    {
+        if (arr[i][0] == 0)
+            col0 = 0;
+
+        for (int j = 1; j < m; j++)
+        {
+            if (arr[i][j] == 0)
+            {
+                arr[i][0] = 0;
+                arr[0][j] = 0;
+            }
+        }
+    }
+
+    // Step 2: apply markers to the inner matrix
+    for (int i = 1; i < n; i++)
+    {
+        for (int j = 1; j < m; j++)
+        {
+            if (arr[0][j] == 0 || arr[i][0] == 0)
+                arr[i][j] = 0;
+        }
+    }
+
+    // Step 3: handle first row
+    if (arr[0][0] == 0)
+    {
+        for (int j = 0; j < m; j++)
+            arr[0][j] = 0;
+    }
+
+    // Step 4: handle first column
+    if (col0 == 0)
+    {
+        for (int i = 0; i < n; i++)
+            arr[i][0] = 0;
+    }
 }
 
 int main()
@@ -140,7 +204,8 @@ int main()
     cout << "]";
 
     // brute_set_matrix_zero(arr);
-    better_set_matrix_zero(arr);
+    // better_set_matrix_zero(arr);
+    optimized_set_matrix_zero(arr);
 
     cout << endl
          << "Set martix to zero: \n";
