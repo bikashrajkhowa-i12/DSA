@@ -64,6 +64,23 @@ int brute_missing_no(vector<int> &arr, int k)
     }
 }
 
+/* better
+    TC: O(n)
+    SC: O(1)
+*/
+int better_missing_no(vector<int> &arr, int &k)
+{
+    int n = arr.size();
+    for (int i = 0; i < n; i++)
+    {
+        if (arr[i] <= k)
+            k++;
+        else
+            break;
+    }
+    return k;
+}
+
 int main()
 {
     vector<int> arr = {1, 2, 3, 4};
@@ -72,5 +89,7 @@ int main()
     cout << endl
          << "k: " << k;
     cout << endl
-         << "The " << k << "th missing +ve number is: " << brute_missing_no(arr, k);
+         << "The " << k << "th missing +ve number is(brute): " << brute_missing_no(arr, k);
+    cout << endl
+         << "The " << k << "th missing +ve number is(better): " << better_missing_no(arr, k);
 }
