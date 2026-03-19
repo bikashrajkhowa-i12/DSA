@@ -68,7 +68,7 @@ int brute_missing_no(vector<int> &arr, int k)
     TC: O(n)
     SC: O(1)
 */
-int better_missing_no(vector<int> &arr, int &k)
+int better_missing_no(vector<int> &arr, int k)
 {
     int n = arr.size();
     for (int i = 0; i < n; i++)
@@ -81,15 +81,49 @@ int better_missing_no(vector<int> &arr, int &k)
     return k;
 }
 
+/*
+    Optimal:
+    - missing = arr[i] - (i + 1)
+    - Find first index where missing ≥ k using binary search
+        - If missing < k → go right
+        - Else → go left
+    - Answer = low + k
+
+    TC: O(log n)
+    SC: O(1)
+*/
+int optimal_missing_no(vector<int> &arr, int k)
+{
+    int n = arr.size();
+    int low = 0;
+    int high = n - 1;
+
+    while (low <= high)
+    {
+        int mid = (low + high) / 2;
+        int missingNum = arr[mid] - (mid + 1); // arr[i] - index + 1
+        if (missingNum < k)
+            low = mid + 1;
+        else
+            high = mid - 1;
+    }
+
+    return low + k;
+}
+
 int main()
 {
-    vector<int> arr = {1, 2, 3, 4};
-    int k = 2;
+    vector<int> arr = {2, 3, 4, 7, 11};
+    int k = 5;
     print_arr(arr);
     cout << endl
          << "k: " << k;
     cout << endl
-         << "The " << k << "th missing +ve number is(brute): " << brute_missing_no(arr, k);
+         << "The " << k << "th missing +ve number is:";
     cout << endl
-         << "The " << k << "th missing +ve number is(better): " << better_missing_no(arr, k);
+         << "Brute: " << brute_missing_no(arr, k);
+    cout << endl
+         << "Better: " << better_missing_no(arr, k);
+    cout << endl
+         << "Optimal: " << optimal_missing_no(arr, k);
 }
