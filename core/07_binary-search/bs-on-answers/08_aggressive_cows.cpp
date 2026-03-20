@@ -87,6 +87,32 @@ int find_distance(vector<int> &arr, int k)
     return distance;
 }
 
+/* Optimized
+    distance = high
+    TC: O(n log n) + O(log(distance) * n)
+    SC: O(1)
+*/
+int optimized_find_distance(vector<int> &arr, int k)
+{
+    sort(arr.begin(), arr.end());
+    int low = 1;
+    int high = arr[arr.size() - 1] - arr[0];
+
+    while (low <= high)
+    {
+        int mid = (low + high) / 2;
+        if (canPlace(arr, k, mid))
+        {
+            low = mid + 1;
+        }
+        else
+        {
+            high = mid - 1;
+        }
+    }
+    return high;
+}
+
 int main()
 {
     vector<int> arr = {4, 2, 1, 3, 6}; // stalls
@@ -95,5 +121,10 @@ int main()
     cout << endl
          << "Cows(k): " << k;
     cout << endl
-         << "Minimum max-distance between cows: " << find_distance(arr, k);
+         << "Minimum max-distance between cows: ";
+    cout << endl
+         << "Brute: " << find_distance(arr, k);
+
+    cout << endl
+         << "Optimized: " << optimized_find_distance(arr, k);
 }
