@@ -95,6 +95,32 @@ int brute_min_largest_sum(vector<int> &arr, int k)
     return maxSum;
 }
 
+/* optimized
+    limit = maxSum - minSum
+    TC: O(n) + O(log limit * n) => O(n * log limit)
+    SC: O(1)
+*/
+int optimized_min_largest_sum(vector<int> &arr, int k)
+{
+    int low = *max_element(arr.begin(), arr.end());
+    int high = sum(arr);
+    int res = high;
+
+    while (low <= high)
+    {
+        int mid = (low + high) / 2;
+        if (canSplitIntoK(arr, k, mid))
+        {
+            res = mid;
+            high = mid - 1;
+        }
+        else
+            low = mid + 1;
+    }
+
+    return res;
+}
+
 int main()
 {
     vector<int> arr = {7, 2, 5, 10, 8};
@@ -104,4 +130,6 @@ int main()
          << "k: " << k;
     cout << endl
          << "Brute: " << brute_min_largest_sum(arr, k);
+    cout << endl
+         << "Optimized: " << optimized_min_largest_sum(arr, k);
 }
