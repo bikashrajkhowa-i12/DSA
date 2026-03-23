@@ -108,6 +108,32 @@ int brute_min_time(vector<int> &arr, int k)
     return result;
 }
 
+/* optimized
+    limit = maxSum - minSum
+    TC: O(n) + O(log limit * n) => O(n * log limit)
+    SC: O(1)
+*/
+int optimized_min_time(vector<int> &arr, int k)
+{
+    int low = *min_element(arr.begin(), arr.end());
+    int high = sum(arr);
+    int result = high;
+
+    while (low <= high)
+    {
+        int mid = (low + high) / 2;
+        if (canPaintAllBoards(arr, k, mid))
+        {
+            result = mid;
+            high = mid - 1;
+        }
+        else
+            low = mid + 1;
+    }
+
+    return result;
+}
+
 int main()
 {
     vector<int> boards = {5, 10, 30, 20, 15};
@@ -119,4 +145,6 @@ int main()
          << "--Minimum time required--";
     cout << endl
          << "brute: " << brute_min_time(boards, k);
+    cout << endl
+         << "brute: " << optimized_min_time(boards, k);
 }
