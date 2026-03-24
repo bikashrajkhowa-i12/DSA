@@ -24,31 +24,34 @@ void print_arr(const vector<int> &arr1, const vector<int> &arr2)
     int n = arr1.size();
     int m = arr2.size();
 
-    if (n == 0 || m == 0)
-    {
-        cout << "[]";
-        return;
-    }
-
     cout << "Given array-1: [";
-    for (int i = 0; i < n; i++)
+    if (n == 0)
+        cout << "]";
+    else
     {
-        if (i == n - 1)
-            cout << arr1[i] << "]";
-        else
-            cout << arr1[i] << ", ";
+        for (int i = 0; i < n; i++)
+        {
+            if (i == n - 1)
+                cout << arr1[i] << "]";
+            else
+                cout << arr1[i] << ", ";
+        }
     }
 
     cout << endl
          << "Given array-2: [";
-    for (int i = 0; i < m; i++)
+    if (m == 0)
+        cout << "]";
+    else
     {
-        if (i == m - 1)
-            cout << arr2[i] << "]";
-        else
-            cout << arr2[i] << ", ";
+        for (int i = 0; i < m; i++)
+        {
+            if (i == m - 1)
+                cout << arr2[i] << "]";
+            else
+                cout << arr2[i] << ", ";
+        }
     }
-
     return;
 }
 
