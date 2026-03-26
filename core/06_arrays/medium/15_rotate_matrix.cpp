@@ -14,6 +14,7 @@ Example 2:
 
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -65,12 +66,55 @@ vector<vector<int>> brute_rotate_matrix(vector<vector<int>> &mat)
     return rotated_mat;
 }
 
+/* Optimized
+    Core-Idea: Transpose Matrix & Reverse Matrix
+    TC: O(n*n) + O(n) => O(n*n)
+    SC: O(1)
+*/
+vector<vector<int>> optimized_rotate_matrix(vector<vector<int>> &mat)
+{
+    int n = mat.size();
+    if (n == 0)
+        return {};
+
+    // method 1
+    // transpose matrix (means rows to cols while diagonals remains same(i == j))
+    // for (int i = 0; i < n; i++)
+    // {
+    //     for (int j = 0; j < n; j++)
+    //     {
+    //         if (i < j) // key condition either i > j(lower triangle) or i < j(upper triangle), any one triangle to be swapped
+    //             swap(mat[i][j], mat[j][i]);
+    //     }
+    // }
+
+    // method 2
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = i; j < n; j++)
+        {
+            swap(mat[i][j], mat[j][i]);
+        }
+    }
+
+    // reverse the rows
+    for (int i = 0; i < n; i++)
+    {
+        reverse(mat[i].begin(), mat[i].end());
+    }
+
+    return mat;
+}
+
 int main()
 {
     vector<vector<int>> mat = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
     cout << "Given matrix: " << endl;
     print_matrix(mat);
     cout << endl
-         << "Rotated matrix: " << endl;
+         << "Rotated matrix(brute): " << endl;
     print_matrix(brute_rotate_matrix(mat));
+    cout << endl
+         << "Rotated matrix(optimized): " << endl;
+    print_matrix(optimized_rotate_matrix(mat));
 }
