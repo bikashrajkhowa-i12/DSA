@@ -107,6 +107,7 @@ double brute_median(vector<int> &arr1, vector<int> &arr2)
     - TC: O(log range)
     - SC: O(1)
 */
+// Core intuition: Left and right partitions must be equal size.
 double optimized_median(vector<int> &arr1, vector<int> &arr2)
 {
     int n1 = arr1.size();
