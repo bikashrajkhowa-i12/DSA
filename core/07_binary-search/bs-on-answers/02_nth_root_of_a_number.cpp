@@ -44,10 +44,60 @@ int brute_nth_root(int &N, int &M)
     return -1;
 }
 
+int checkRoot(int N, int M, int num)
+{
+    long long product = 1;
+
+    for (int i = 1; i <= N; i++)
+    {
+        product *= num;
+
+        if (product > M)
+            return 1; // too big
+    }
+
+    if (product == M)
+        return 0; // exact match
+
+    return -1; // too small
+}
+
+/* optimized
+    TC: O(N * log M)
+    SC: O(1)
+*/
+int optimized_nth_root(int &N, int &M)
+{
+    int low = 1;
+    int high = M;
+
+    while (low <= high)
+    {
+        int mid = (low + high) / 2;
+        int result = checkRoot(N, M, mid);
+
+        if (result == 0)
+        { // found exact root;
+            return mid;
+        }
+        else if (result == 1)
+        { // mid^N > M
+            high = mid - 1;
+        }
+        else
+        { // mid^N < M
+            low = mid + 1;
+        }
+    }
+    return -1;
+}
+
 int main()
 {
-    int N = 5, M = 1;
+    int N = 4, M = 256;
     cout << "N: " << N << ", M: " << M;
     cout << endl
-         << "Nth root: " << brute_nth_root(N, M);
+         << "Nth root(brute): " << brute_nth_root(N, M);
+    cout << endl
+         << "Nth root(optimized): " << optimized_nth_root(N, M);
 }
