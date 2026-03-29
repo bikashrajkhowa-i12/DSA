@@ -13,6 +13,7 @@ Output: 2
 
 #include <iostream>
 #include <vector>
+#include <unordered_map>
 
 using namespace std;
 
@@ -81,10 +82,39 @@ int better_total_subarrays(vector<int> &nums, int k)
     }
     return total;
 }
+/* optimal
+    - Idea intuition: Keep a running sum; whenever you’ve seen an earlier sum
+        that is current sum − k, the numbers between them add up to k.
+    - TC: O(n)
+    - SC: O(n)
+*/
+int optimal_total_subarrays(vector<int> &nums, int k)
+{
+    unordered_map<int, int> ump;
+    ump[0] = 1; // base: one way to have prefix sum 0 (empty prefix)
+
+    int total = 0;
+    int prefix = 0; // running prefix sum
+
+    for (int x : nums)
+    {
+        prefix += x; // update prefix sum up to current index
+
+        // if (prefix - k) seen before,
+        // those many subarrays end here with sum = k
+        if (ump.count(prefix - k))
+            total += ump[prefix - k];
+
+        // record this prefix for future subarrays
+        ump[prefix]++;
+    }
+
+    return total; // total subarrays with sum = k
+}
 
 int main()
 {
-    vector<int> nums = {1, 2, 3};
+    vector<int> nums = {1, 1, 1};
     int k = 3;
     cout << "Given array nums: ";
     print_arr(nums);
@@ -94,4 +124,6 @@ int main()
          << "Total subarrays (brute): " << brute_total_subarrays(nums, k);
     cout << endl
          << "Total subarrays (better): " << better_total_subarrays(nums, k);
+    cout << endl
+         << "Total subarrays (optimal): " << optimal_total_subarrays(nums, k);
 }
