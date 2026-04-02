@@ -15,6 +15,7 @@ Explanation: The subarrays having XOR of their elements as 5 are [5] and [5, 6, 
 
 #include <iostream>
 #include <vector>
+#include <unordered_map>
 using namespace std;
 
 void print_arr(const vector<int> &arr)
@@ -93,6 +94,31 @@ int better_total_count(vector<int> &arr, int target)
     return count;
 }
 
+/* optimzied
+    TC: O(n)
+    SC: O(n)
+*/
+int optimized_total_count(vector<int> &arr, int k)
+{
+    int n = arr.size();
+    if (n == 0)
+        return 0;
+
+    int XOR = 0;
+    unordered_map<int, int> ump;
+    ump[XOR]++;
+    int count = 0;
+
+    for (int i = 0; i < n; i++)
+    {
+        XOR = XOR ^ arr[i];
+        int x = XOR ^ k;
+        count += ump[x];
+        ump[x]++;
+    }
+    return count;
+}
+
 int main()
 {
     vector<int> nums = {4, 2, 2, 6, 4};
@@ -104,5 +130,7 @@ int main()
          << "Brute: " << brute_total_count(nums, k);
     cout << endl
          << "Better: " << better_total_count(nums, k);
+    cout << endl
+         << "Optimized: " << optimized_total_count(nums, k);
     return 0;
 }
