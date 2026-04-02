@@ -67,6 +67,32 @@ int brute_total_count(vector<int> &arr, int target)
     return count;
 }
 
+/* better
+    TC: O(n*n)
+    SC: O(1)
+*/
+int better_total_count(vector<int> &arr, int target)
+{
+    int n = arr.size();
+    if (n == 0)
+        return 0;
+
+    int count = 0;
+
+    for (int i = 0; i < n; i++)
+    {
+        int XOR = 0;
+        for (int j = i; j < n; j++)
+        {
+            XOR = XOR ^ arr[j];
+            if (XOR == target)
+                count++;
+        }
+    }
+
+    return count;
+}
+
 int main()
 {
     vector<int> nums = {4, 2, 2, 6, 4};
@@ -76,5 +102,7 @@ int main()
          << "k: " << k;
     cout << endl
          << "Brute: " << brute_total_count(nums, k);
+    cout << endl
+         << "Better: " << better_total_count(nums, k);
     return 0;
 }
