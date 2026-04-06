@@ -48,6 +48,8 @@ Hence the output will be 1 1 1 3 5 6.
 
 #include <iostream>
 #include <vector>
+#include <stack>
+
 using namespace std;
 
 void print_arr(const vector<int> &arr)
@@ -70,37 +72,86 @@ void print_arr(const vector<int> &arr)
     return;
 }
 
-/* brute-force
-    - TC: O(n*n)
-    - SC: O(n) // for the result otherwise O(1) space.
+/* -------------------- BRUTE FORCE VERSION -------------------- */
+/*
+Time: O(n^2)
+For every next(price), we scan all previous prices.
 */
-vector<int> brute_stock_span(vector<int> &arr)
+class StockSpannerBrute
 {
-    int n = arr.size();
-    if (n == 0)
-        return {};
-    vector<int> res(n);
+public:
+    vector<int> prices;
 
-    for (int i = 0; i < n; i++)
+    int next(int price)
     {
-        int count = 0;
-        int j = i;
-        while (j >= 0)
+        prices.push_back(price);
+
+        int span = 0;
+        int i = prices.size() - 1;
+
+        while (i >= 0 && prices[i] <= price)
         {
-            if (arr[j] <= arr[i])
-                count++;
-            j--;
+            span++;
+            i--;
         }
-        res[i] = count;
+
+        return span;
     }
-    return res;
-}
+};
+
+/* -------------------- OPTIMIZED VERSION -------------------- */
+/*
+Time: O(n) overall (O(1) amortized per call)
+Using Monotonic Decreasing Stack
+*/
+class StockSpannerOptimized
+{
+public:
+    StockSpannerOptimized()
+    {
+        //  nothing to initialize
+    }
+
+    stack<pair<int, int>> st; // {price, span}
+
+    int next(int price)
+    {
+        int span = 1;
+
+        while (!st.empty() && st.top().first <= price)
+        {
+            span += st.top().second;
+            st.pop();
+        }
+
+        st.push({price, span});
+        return span;
+    }
+};
+
+/* -------------------- DRIVER CODE -------------------- */
 
 int main()
 {
-    vector<int> arr = {120, 100, 60, 80, 90, 110, 115};
-    print_arr(arr);
-    cout << endl
-         << "Stock span: ",
-        print_arr(brute_stock_span(arr));
+    vector<int> input = {100, 80, 60, 70, 60, 75, 85};
+
+    StockSpannerBrute brute;
+    StockSpannerOptimized opt;
+
+    cout << "Input Prices: ";
+    for (int p : input)
+        cout << p << " ";
+    cout << "\n\n";
+
+    cout << "Brute Output:      ";
+    for (int p : input)
+        cout << brute.next(p) << " ";
+    cout << "\n";
+
+    cout << "Optimized Output:  ";
+    for (int p : input)
+        cout << opt.next(p) << " ";
+    cout << "\n";
+
+    return 0;
 }
