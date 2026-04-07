@@ -89,6 +89,56 @@ int brute_celebrity(vector<vector<int>> &M)
     return -1;
 }
 
+/* Optimized
+    TC: O(n) + O(n) => O(2n) => O(n)
+    SC: O(1)
+*/
+int optimized_celebrity(vector<vector<int>> &M)
+{
+    int n = M.size();
+
+    if (n == 0)
+        return -1;
+
+    int top = 0, bottom = n - 1;
+
+    while (top < bottom)
+    {
+        if (M[top][bottom] == 1)
+            top++;
+        else if (M[bottom][top] == 1)
+            bottom--;
+        else
+        {
+            top++;
+            bottom--;
+        }
+    }
+
+    if (top > bottom)
+        return -1;
+
+    for (int i = 0; i < n; i++)
+    {
+        if (i == top)
+            continue;
+
+        // everyone must know someone and one must not know everyone
+        if (M[top][i] == 1 || M[i][top] == 0)
+            return -1;
+
+        // alternate way
+        /*
+            if (M[top][i] == 0 && M[i][top] == 1)
+                continue;
+            else
+                return -1;
+        */
+    }
+
+    return top; // or bottom
+}
+
 int main()
 {
     vector<vector<int>> M = {{0, 1, 1, 0},
@@ -100,6 +150,8 @@ int main()
         << "Given matrix: ";
     print_matrix(M);
     cout << endl
-         << "Celebrity: " << brute_celebrity(M);
+         << "\nCelebrity(brute): " << brute_celebrity(M);
+    cout << endl
+         << "Celebrity(optimized): " << optimized_celebrity(M) << endl;
     return 0;
 }
